@@ -195,30 +195,30 @@ map.on('load', () => {
      */
 
     // show the popup when mouse enters it
-    map.addInteraction('zone-mouseenter-interaction', {
-        type: 'mouseenter',
-        target: { layerId: active_layer },
-        handler: (e) => {
-            map.getCanvas().style.cursor = 'pointer';
+    // map.addInteraction('zone-mouseenter-interaction', {
+    //     type: 'mouseenter',
+    //     target: { layerId: active_layer },
+    //     handler: (e) => {
+    //         map.getCanvas().style.cursor = 'pointer';
 
-            // Copy the coordinates from the POI underneath the cursor
-            const coordinates = e.feature.geometry.coordinates.slice();
-            const description = e.feature.properties.DATA;
+    //         // Copy the coordinates from the POI underneath the cursor
+    //         const coordinates = e.feature.geometry.coordinates.slice();
+    //         const description = e.feature.properties.DATA;
 
-            // Populate the popup and set its coordinates based on the feature found.
-            popup.setLngLat(coordinates).setHTML(description).addTo(map);
-        }
-    });
+    //         // Populate the popup and set its coordinates based on the feature found.
+    //         popup.setLngLat(coordinates).setHTML(description).addTo(map);
+    //     }
+    // });
 
     // remove popup when mouse leaves
-    map.addInteraction('zone-mouseleave-interaction', {
-        type: 'mouseleave',
-        target: { layerId: active_layer },
-        handler: () => {
-            map.getCanvas().style.cursor = '';
-            popup.remove();
-        }
-    });
+    // map.addInteraction('zone-mouseleave-interaction', {
+    //     type: 'mouseleave',
+    //     target: { layerId: active_layer },
+    //     handler: () => {
+    //         map.getCanvas().style.cursor = '';
+    //         popup.remove();
+    //     }
+    // });
 
     
 
