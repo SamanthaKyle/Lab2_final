@@ -23,6 +23,8 @@ const autotheft_quartiles = [0, 122.99, 192.6, 266.14];
 // set my color scale here to make it easy to edit later
 const colors = ['#d64626', '#d87c42', '#e6aa61', '#F2F12D']
 
+var active_layer = 'none'
+
 
 
 map.on('load', () => {
@@ -53,7 +55,7 @@ map.on('load', () => {
     map.addSource('assault', {
         'type': 'geojson',
         'generateId': true,
-        'data': 'https://raw.githubusercontent.com/SamanthaKyle/Lab2_final/refs/heads/main/data/crime.geojson'
+        'data': 'https://raw.githubusercontent.com/SamanthaKyle/Lab2_final/refs/heads/main/data/assualt.geojson'
     }
     );
     // Add a layer showing the assault
@@ -69,7 +71,7 @@ map.on('load', () => {
             'fill-color': [
                 'interpolate',
                 ['linear'],
-                ['get', 'ASSAULT_RATE_2025'],
+                ['get', 'DATA'],
                 assault_quartiles[0],
                 colors[3],
                 assault_quartiles[1],
@@ -87,7 +89,7 @@ map.on('load', () => {
     map.addSource('robbery', {
         'type': 'geojson',
         'generateId': true,
-        'data': 'https://raw.githubusercontent.com/SamanthaKyle/Lab2_final/refs/heads/main/data/crime.geojson'
+        'data': 'https://raw.githubusercontent.com/SamanthaKyle/Lab2_final/refs/heads/main/data/robbery.geojson'
     }
     );
     // Add a layer showing the robbery rates
@@ -103,7 +105,7 @@ map.on('load', () => {
             'fill-color': [
                 'interpolate',
                 ['linear'],
-                ['get', 'ROBBERY_RATE_2025'],
+                ['get', 'DATA'],
                 robbery_quartiles[0],
                 colors[3],
                 robbery_quartiles[1],
@@ -121,7 +123,7 @@ map.on('load', () => {
     map.addSource('theft', {
         'type': 'geojson',
         'generateId': true,
-        'data': 'https://raw.githubusercontent.com/SamanthaKyle/Lab2_final/refs/heads/main/data/crime.geojson'
+        'data': 'https://raw.githubusercontent.com/SamanthaKyle/Lab2_final/refs/heads/main/data/theft.geojson'
     }
     );
     // Add a layer showing the autotheft rates
@@ -138,7 +140,7 @@ map.on('load', () => {
             'fill-color': [
                 'interpolate',
                 ['linear'],
-                ['get', 'AUTOTHEFT_RATE_2025'],
+                ['get', 'DATA'],
                 autotheft_quartiles[0],
                 colors[3],
                 autotheft_quartiles[1],
@@ -184,6 +186,42 @@ map.on('load', () => {
         }
     });
 
+    /**
+     * I wanted to add another feature here so that hovering over or clicking a neighbourhood
+     * shows the requested crime stat for that neighbourhood
+     * I think I know how to do that, but I didn't have time to get it functional
+     * 
+     * My attempt is here below
+     */
+
+    // show the popup when mouse enters it
+    map.addInteraction('zone-mouseenter-interaction', {
+        type: 'mouseenter',
+        target: { layerId: active_layer },
+        handler: (e) => {
+            map.getCanvas().style.cursor = 'pointer';
+
+            // Copy the coordinates from the POI underneath the cursor
+            const coordinates = e.feature.geometry.coordinates.slice();
+            const description = e.feature.properties.DATA;
+
+            // Populate the popup and set its coordinates based on the feature found.
+            popup.setLngLat(coordinates).setHTML(description).addTo(map);
+        }
+    });
+
+    // remove popup when mouse leaves
+    map.addInteraction('zone-mouseleave-interaction', {
+        type: 'mouseleave',
+        target: { layerId: active_layer },
+        handler: () => {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+        }
+    });
+
+    
+
 });
 
 // my buttons
@@ -206,6 +244,7 @@ theft_button.addEventListener('click', () => {
     theft_button.style.backgroundColor = 'white'
     robbery_button.style.backgroundColor = 'burlywood';
     assault_button.style.backgroundColor = 'burlywood';
+    active_layer = theft_button
 })
 
 // analagous to above
@@ -218,6 +257,7 @@ robbery_button.addEventListener('click', () => {
     robbery_button.style.backgroundColor = 'white'
     theft_button.style.backgroundColor = 'burlywood';
     assault_button.style.backgroundColor = 'burlywood';
+    active_layer = robbery_button
 })
 
 // analagous to above
@@ -229,6 +269,8 @@ assault_button.addEventListener('click', () => {
     assault_button.style.backgroundColor = 'white'
     robbery_button.style.backgroundColor = 'burlywood';
     theft_button.style.backgroundColor = 'burlywood';
+
+    active_layer=assault_button
     
 })
 

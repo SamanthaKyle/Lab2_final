@@ -1,7 +1,7 @@
 import geopandas as gpd
 
 # read in the file
-full_file = gpd.read_file('./data/crime.geojson')
+full_file = gpd.read_file('./data/crime.geojson') # have since deleted this file fyi
 
 # separate by datatype and rename for consistency
 just_robbery = full_file[['ROBBERY_RATE_2025', 'geometry']]
