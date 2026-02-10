@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GGR472 Week5 Exercise </title>
+    <!-- link to mapbox and bootstrap stylings -->
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.18.1/mapbox-gl.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -14,54 +15,43 @@
 </head>
 
 <body>
-    <div class='container'>
-        <div class = 'row-2'>
-            <body>Police Stations versus Crime Rates</body>
+    <!-- fluid container to hold by row and column objects and fluid so it fills screens by default -->
+    <div class='container-fluid '>
+        <div class='row text-center'>
+            <h1 class="'display-1"> Welcome to Toronto Crime Rate Explorer</h1>
+            <h4>Police Stations versus Crime Rates</h4>
         </div>
         <div class='row'>
-            <div class='col-lg-3'>
+            <div class='col-2'>
                 <h4>Legend </h4>
-                
-                <div class = 'container legend'>
-                    <body>2025 Assault Rate per 100 000 people</body>
-                    <div class='row' style="background-color: #723122">4400</div>
-                    <div class='row' style="background-color: #8b4225">2210</div>
-                    <div class='row' style="background-color: #a25626">1980</div>
-                    <div class='row' style="background-color: #b86b25">1650</div>
-                    <div class='row' style="background-color: #ca8323">1320</div>
-                    <div class='row' style="background-color: #da9c20">990</div>
-                    <div class='row' style="background-color: #e6b71e">660</div>
-                    <div class='row' style="background-color: #eed322">330</div>
-                    <div class='row' style="background-color: #f2f12d">0</div>
+
+                <div class='legend'>
+
+                    <body id='varname'>Crime Rate per 100 000 people in 2025</body>
+                    <!-- legend! -->
+                    <div class='row' style="background-color: #d64626">highest quartile</div>
+                    <div class='row' style="background-color: #d87c42">third quartile</div>
+                    <div class='row' style="background-color: #e6aa61">second quartile</div>
+                    <div class='row' style="background-color: #F2F12D">lowest quartile</div>
                 </div>
                 <div class = 'row'>
-                    <br>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Change Choropleth Layer
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a id = 'robbery-click' class="dropdown-item" href="#">Robbery 2025</a></li>
-                            <li><a id = 'theft-click' class="dropdown-item" href="#">Theft 2025</a></li>
-                            <li><a id = 'be-click' class="dropdown-item" href="#">Breaking and Entering 2025</a></li>
-                            
-                        </ul>
-                    </div>
+                    <!-- suite of buttons -->
+                    <button id = 'robbery-click' class = 'button'> See Robbery Stats </button>
+                    <button id= 'assault-click' class = 'button'> See Assault Stats </button>
+                    <button id = 'theft-click'class = 'button' > See Auto Theft Stats </button>
                 </div>
-                
-                
             </div>
-            <div class='col'>
+            <div class='col min-vh-100 flex-column'>
                 <div id='my-map' class='map-container'></div>
             </div>
         </div>
     </div>
+    <!-- link to bootstrap and my own script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-            crossorigin="anonymous"></script>
-
-        <script src='script.js'></script>
+    <script src='script.js'></script>
 </body>
 
 </html>
